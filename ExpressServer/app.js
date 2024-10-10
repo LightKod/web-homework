@@ -1,11 +1,15 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-const db = require('./src/database');
+import createError from 'http-errors'
+import express from 'express'
+import path from 'path'
+import { fileURLToPath } from 'url';
+import cookieParser from 'cookie-parser'
+import logger from 'morgan'
+import db from './src/database.js'
 
-var actorRoutes = require('./src/routes/actor.route');
+import actorRoutes from './src/routes/actor.route.js'
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 var app = express();
 
@@ -33,4 +37,4 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+export default app

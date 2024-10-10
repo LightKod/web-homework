@@ -1,7 +1,7 @@
-const db = require('../database');
+import db from '../database.js'
 
 // Get all actors
-exports.getAllActors = async (req, res) => {
+export async function getAllActors(req, res) {
     try {
         const results = await db('actor').select('*');
         res.json(results);
@@ -12,7 +12,7 @@ exports.getAllActors = async (req, res) => {
 };
 
 // Get an actor by ID
-exports.getActorById = async (req, res) => {
+export async function getActorById(req, res) {
     const actorId = req.params.id;
     try {
         const result = await db('actor').where('actor_id', actorId).first();
@@ -27,7 +27,7 @@ exports.getActorById = async (req, res) => {
 };
 
 // Add a new actor
-exports.addActor = async (req, res) => {
+export async function addActor(req, res) {
     const { first_name, last_name } = req.body;
     try {
         const [actorId] = await db('actor').insert({ first_name, last_name }); // Insert and get the inserted ID
@@ -39,7 +39,7 @@ exports.addActor = async (req, res) => {
 };
 
 // Delete an actor
-exports.deleteActor = async (req, res) => {
+export async function deleteActor(req, res) {
     const actorId = req.params.id;
     try {
         //await db('film_actor').where('actor_id', actorId).del(); //Kinda dangerous
@@ -56,7 +56,7 @@ exports.deleteActor = async (req, res) => {
 };
 
 // Update an actor
-exports.updateActor = async (req, res) => {
+export async function updateActor(req, res) {
     const actorId = req.params.id;
     const { first_name, last_name } = req.body;
     try {

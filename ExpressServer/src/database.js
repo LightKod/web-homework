@@ -1,4 +1,4 @@
-const knex = require('knex');
+import knex from 'knex'
 
 const db = knex({
     client: 'mysql2',
@@ -10,7 +10,7 @@ const db = knex({
         port: 3307,
     },
     pool: {
-        min: 2, max: 10,
+        min: 0, max: 10,
     },
 });
 
@@ -18,4 +18,4 @@ db.raw('SELECT 1 + 1 AS result')
     .then(() => console.log('Connected to MySQL with Knex'))
     .catch((err) => console.error('Error connecting to MySQL with Knex:', err));
 
-module.exports = db;
+export default db
