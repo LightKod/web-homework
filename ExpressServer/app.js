@@ -7,6 +7,7 @@ import logger from 'morgan'
 import db from './src/database.js'
 
 import actorRoutes from './src/routes/actor.route.js'
+import filmRoutes from './src/routes/film.route.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/actor', actorRoutes);
+app.use('/film', filmRoutes);
 
 app.use(function (req, res, next) {
   next(createError(404));
