@@ -19,7 +19,10 @@ export async function getAllFilms(req, res) {
 
 // Get an film by ID
 export async function getFilmById(req, res) {
+    console.log("aaaaaaaâ")
+
     const filmId = req.params.id;
+    console.log("aaaaaaaâ")
     try {
         const result = await db('film').where('film_id', filmId).first();
         const status = result ? STATUS_SUCCESS : STATUS_ERROR;
