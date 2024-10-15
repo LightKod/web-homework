@@ -5,8 +5,8 @@ const db = knex({
     connection: {
         host: 'localhost',
         user: 'root',
-        password: '123456',
-        database: 'sakila',
+        password: 'Quanmysql@1307',
+        database: 'sakila_db',
         port: 3306,
     },
     pool: {
