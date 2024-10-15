@@ -1,25 +1,3 @@
-/**
- * @swagger
- * components:
- *   schemas:
- *     Categories:
- *       type: object
- *       required:
- *         - category_id
- *         - name
- *         - last_update
- *       properties:
- *         category_id:
- *           type: integer
- *           description: The auto increment id of the category
- *         name:
- *           type: string
- *           description: The name of the category
- *         last_update:
- *           type: string
- *           format: date
- *           description: Update time of a category
- */
 import express from 'express';
 import { readFile } from 'fs/promises';
 import categoryModel from '../models/category.model.js';
@@ -30,7 +8,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /api/categories:
+ * /categories:
  *   get:
  *     tags: [Category]
  *     summary: Retrieve all categories.
@@ -43,7 +21,7 @@ const router = express.Router();
  *            schema:
  *              type: array
  *              items:
- *                $ref: '#/components/schemas/Categories'
+ *                $ref: '#/components/schemas/Category'
  *       '404':
  *        description: Not Found 
  *       '500':
@@ -57,7 +35,7 @@ router.get('/', async function (req, res) {
 
 /**
  * @swagger
- * /api/categories/{id}:
+ * /categories/{id}:
  *   get:
  *     tags: [Category]
  *     parameters:
@@ -75,7 +53,7 @@ router.get('/', async function (req, res) {
  *        content:
  *          application/json:
  *            schema:
- *                $ref: '#/components/schemas/Categories'
+ *                $ref: '#/components/schemas/Category'
  *       '204':
  *        description: No Content
  *       '400':
@@ -98,7 +76,7 @@ router.get('/:id', async function (req, res) {
 
 /**
  * @swagger
- * /api/categories:
+ * /categories:
  *   post:
  *     tags: [Category]
  *     summary: Create a new category.
@@ -108,14 +86,14 @@ router.get('/:id', async function (req, res) {
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/Categories'
+ *              $ref: '#/components/schemas/Category'
  *     responses:
  *       '201':
  *        description: Successful Add a category
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/Categories'
+ *              $ref: '#/components/schemas/Category'
  *       '400':
  *        description: Invalid ID supplied
  *       '404':
@@ -136,7 +114,7 @@ router.post('/', validate(schema), async function (req, res) {
 
 /**
  * @swagger
- * /api/categories/{id}:
+ * /categories/{id}:
  *   delete:
  *     tags:
  *        - Category
@@ -170,7 +148,7 @@ router.delete('/:id', async function (req, res) {
 
 /**
  * @swagger
- * /api/categories/{id}:
+ * /categories/{id}:
  *   patch:
  *     tags:
  *        - Category
@@ -181,7 +159,7 @@ router.delete('/:id', async function (req, res) {
  *      content:
  *        application/json:
  *          schema:
- *            $ref: '#/components/schemas/Categories'
+ *            $ref: '#/components/schemas/Category'
  *     responses:
  *       '200':
  *        description: Successful Operation, nunmbers of categories affected
