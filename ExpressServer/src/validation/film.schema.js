@@ -103,6 +103,8 @@ const filmSchema = z.object({
     // special_features: set('Trailers','Commentaries','Deleted Scenes','Behind the Scenes'), nullable
     special_features: z.array(z.enum(['Trailers','Commentaries','Deleted Scenes','Behind the Scenes']))
 }).refine(async (data) => {
+    if(data.language_id === undefined || data.language_id === null) 
+        return true
     const result = await db('language').where('language_id', data.language_id).first()
     return result ? true : false
 }, {
