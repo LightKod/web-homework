@@ -5,7 +5,7 @@ const db = knex({
     connection: {
         host: 'localhost',
         user: 'root',
-        password: '220903',
+        password: '123456',
         database: 'sakila',
         port: 3306,
     },
