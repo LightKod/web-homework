@@ -1,10 +1,13 @@
 import express from 'express';
 import { readFile } from 'fs/promises';
 import categoryModel from '../models/category.model.js';
-import validate from '../middlewares/validate.mdw.js';
+import categorySchema from '../validation/category.schema.js';
 
 const schema = JSON.parse(await readFile(new URL('../schemas/category.json', import.meta.url)));
 const router = express.Router();
+
+const STATUS_SUCCESS = 0;
+const STATUS_ERROR = -1;
 
 /**
  * @swagger
@@ -101,8 +104,17 @@ router.get('/:id', async function (req, res) {
  *       '500':
  *        description: Internal Server Error
  */
-router.post('/', validate(schema), async function (req, res) {
+router.post('/', async function (req, res) {
   let category = req.body;
+
+  const validationResult = await categorySchema.safeParse({
+    name: category
+  })
+
+  if (!validationResult.success) {
+    return res.status(400).json({ error: "Failed to add category", message: validationResult.error.flatten().fieldErrors, status: STATUS_ERROR })
+  }
+
   const ret = await categoryModel.add(category);
   category = {
     category_id: ret[0],
@@ -170,9 +182,18 @@ router.delete('/:id', async function (req, res) {
  *       '500':
  *        description: Internal Server Error
  */
-router.patch('/:id', validate(schema), async function (req, res) {
+router.patch('/:id', async function (req, res) {
   const id = req.params.id || 0;
   const category = req.body;
+
+  const validationResult = await categorySchema.safeParse({
+    name: category
+  })
+
+  if (!validationResult.success) {
+    return res.status(400).json({ error: "Failed to update category", message: validationResult.error.flatten().fieldErrors, status: STATUS_ERROR })
+  }
+
   const n = await categoryModel.patch(id, category);
   res.json({
     affected: n
