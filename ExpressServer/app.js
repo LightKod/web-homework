@@ -14,6 +14,7 @@ import DailyRotateFile from 'winston-daily-rotate-file';
 import actorRoutes from './src/routes/actor.route.js'
 import filmRoutes from './src/routes/film.route.js'
 import logRoutes from './src/routes/log.route.js'
+import categoryRoute from './src/routes/category.route.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 // Định nghĩa định dạng cho log
@@ -67,6 +68,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/logs', logRoutes)
 app.use('/actor', actorRoutes);
 app.use('/films', filmRoutes);
+app.use('/category', categoryRoute);
 
 app.use(function (req, res, next) {
   next(createError(404));

@@ -82,3 +82,20 @@
 
 - **PUT /films/:id**  
   Updates an existing film in the database by ID.
+
+### Category Routes
+
+- **GET /category**  
+  Returns a full list of categories in the database.
+
+- **GET /category/:id**  
+  Returns a single category by ID.
+
+- **POST /category**  
+  Adds a new category to the database.
+
+- **DELETE /category/:id**  
+  Deletes a category from the database by ID.
+
+- **PUT /category/:id**  
+  Updates an existing category in the database by ID.
