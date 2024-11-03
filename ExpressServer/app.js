@@ -6,7 +6,8 @@ import cookieParser from 'cookie-parser'
 import logger from 'morgan'
 import db from './src/database.js'
 import swaggerUi from 'swagger-ui-express';
-import swaggerSpec from './src/swagger.js'; 
+import swaggerSpec from './src/swagger.js';
+import myLogger from './logger/index.js';
 
 import actorRoutes from './src/routes/actor.route.js'
 import filmRoutes from './src/routes/film.route.js'
@@ -23,6 +24,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use((req, res, next) => {
+  console.log('here: ', req.method, req.url);
+  myLogger.info(`Request: ${req.method} ${req.url}`);
+  next();
+})
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 

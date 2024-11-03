@@ -1,3 +1,4 @@
+import myLogger from '../../logger/index.js';
 import db from '../database.js';
 
 // Define status constants
@@ -9,9 +10,11 @@ export async function getAllActors(req, res) {
     try {
         const results = await db('actor').select('*');
         const status = results.length > 0 ? STATUS_SUCCESS : STATUS_ERROR;
+        myLogger.info(status);
         res.json({ results, status, message: "" });
     } catch (err) {
-        console.error('Error fetching actors:', err);
+        // console.error('Error fetching actors:', err);
+        myLogger.error(err.message);
         return res.status(500).json({ error: 'Failed to retrieve actors', status: STATUS_ERROR });
     }
 }
