@@ -9,49 +9,76 @@
 ## Technologies Applied
 - **ExpressJS**
 - **Knex**
+- **Swagger** (for API documentation)
+- **Winston** (for logging with daily file rotation)
 
 ## Prerequisites
-- Have **MySQL** installed on your system.
-- The **sakila** database must be imported to your MySQL.
+- **MySQL** installed on your system.
+- **Sakila** database imported to your MySQL.
 
 ## Installation Steps
 
 1. **Open the Project**  
-   Navigate to the submitted folder and open it in any IDE (e.g., VSCode).
+   Navigate to the submitted folder and open it in an IDE (e.g., VSCode).
 
 2. **Install Required Packages**  
    Open the Terminal and run the following command to install all required packages:
-   ```
+   ```bash
    npm install
    ```
 
 3. **Configure Database Connection**  
-   Navigate to the `database.js` file located at `./src/database.js`.  
-   Modify the Knex connection configurations to match your MySQL server settings.
+   Create a `.env` file base on the given `sample.env` file with your database configuration
 
 4. **Start the Server**  
    In the Terminal, execute the following command to start the server:
    ```
    npm start
    ```
+5. **Access API Documentation**
+  Swagger UI documentation is available at http://localhost:3000/api-docs once the server is running.
 
-5. **Test API Endpoints**  
-   Use any API testing tool (e.g., Postman) to test the available endpoints.
+6. **View Logs**
+  Logs are stored in the logs directory, with daily file rotation and automatic compression of old logs. Logs are stored for up to 14 days, with each file limited to 20MB.
 
-   ### Endpoints for Actor Table
-   All actor-related endpoints start with `/actor` as the base path.
+## Endpoints
 
-   - **GET /actor**  
-     Returns a full list of actors in the database.
-   
-   - **GET /actor/:id**  
-     Returns a single actor whose ID matches the one in the database.
-   
-   - **POST /actor**  
-     Adds a new actor to the database.
-   
-   - **DELETE /actor/:id**  
-     Deletes actor(s) from the database whose ID matches the one in the database.
-   
-   - **PUT /actor/:id**  
-     Updates actor(s) whose ID matches the one in the database.
+### API Documentation
+- **GET /api-docs**  
+  Serves the Swagger UI documentation for the API.
+
+### Log Routes
+- **GET /logs/search-log**  
+  Searches log entries based on a query parameter.
+
+### Actor Routes
+- **GET /actor**  
+  Returns a full list of actors in the database.
+
+- **GET /actor/:id**  
+  Returns a single actor by ID.
+
+- **POST /actor**  
+  Adds a new actor to the database.
+
+- **DELETE /actor/:id**  
+  Deletes an actor from the database by ID.
+
+- **PUT /actor/:id**  
+  Updates an existing actor in the database by ID.
+
+### Film Routes
+- **GET /films**  
+  Returns a full list of films in the database.
+
+- **GET /films/:id**  
+  Returns a single film by ID.
+
+- **POST /films**  
+  Adds a new film to the database.
+
+- **DELETE /films/:id**  
+  Deletes a film from the database by ID.
+
+- **PUT /films/:id**  
+  Updates an existing film in the database by ID.
