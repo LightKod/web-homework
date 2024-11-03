@@ -10,3 +10,5 @@ const categorySchema = z.object({
         message: "Category name must have at least 1 character"
     })
 })
+
+export default categorySchema
