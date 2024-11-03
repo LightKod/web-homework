@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
 import db from './src/database.js'
 import swaggerUi from 'swagger-ui-express';
-import swaggerSpec from './src/swagger.js'; 
+import swaggerSpec from './src/swagger.js';
 import winston from 'winston';
 import { format } from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
@@ -26,8 +26,8 @@ const logger = winston.createLogger({
   ),
   transports: [
     // new winston.transports.Console(),
-     // Lưu log vào file, với cơ chế xoay vòng file log hàng ngày
-     new DailyRotateFile({
+    // Lưu log vào file, với cơ chế xoay vòng file log hàng ngày
+    new DailyRotateFile({
       filename: 'logs/application-%DATE%.log',
       datePattern: 'YYYY-MM-DD', // Xoay vòng hàng ngày
       zippedArchive: true, // Nén file cũ
@@ -57,8 +57,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use((req, res, next) => {
+  console.log('here: ', req.method, req.url);
+  myLogger.info(`Request: ${req.method} ${req.url}`);
+  next();
+})
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.use('/logs',logRoutes)
+app.use('/logs', logRoutes)
 app.use('/actor', actorRoutes);
 app.use('/films', filmRoutes);
 
