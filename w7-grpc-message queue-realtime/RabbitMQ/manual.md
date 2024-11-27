@@ -1,4 +1,4 @@
-# GA07 - MESSAGE QUEUE - Group 09 - Manual
+# GA05 - MESSAGE QUEUE - Group 09 - Manual
 
 ## Group Information
 - **21127092** - Trần Hoàng Lâm

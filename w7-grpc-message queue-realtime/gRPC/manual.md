@@ -1,4 +1,4 @@
-# GA07 - GRPC - MESSAGE QUEUE - REALTIME - Group 09 - Manual
+# GA05 - GRPC - MESSAGE QUEUE - REALTIME - Group 09 - Manual
 
 ## Group Information
 - **21127092** - Trần Hoàng Lâm

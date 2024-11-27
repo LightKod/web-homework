@@ -1,4 +1,4 @@
-# GA06 - Security  - Group 09 - Manual
+# GA04 - Security  - Group 09 - Manual
 
 ## Group Information
 - **21127092** - Trần Hoàng Lâm
