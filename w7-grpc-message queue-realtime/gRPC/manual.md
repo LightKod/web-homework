@@ -1,4 +1,4 @@
-# GA01 - RESTful API - Group 09 - Manual
+# GA07 - GRPC - MESSAGE QUEUE - REALTIME - Group 09 - Manual
 
 ## Group Information
 - **21127092** - Trần Hoàng Lâm
