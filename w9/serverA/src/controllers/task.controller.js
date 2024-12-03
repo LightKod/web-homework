@@ -5,13 +5,13 @@ const STATUS_ERROR = -1;
 // Lấy tất cả các Task
 module.exports.getTasks = async (req, res) => {
     const { name, completed } = req.query;
+    const userId = req.user.id;
 
-    // Xử lý giá trị của `completed` vì query parameters luôn ở dạng string
+    // Xử lý giá trị của `completed`
     const completedBool = completed !== undefined ? completed === 'true' : undefined;
 
     try {
-        // Gửi các query parameters đến service
-        const tasks = await taskService.findTasks({ name, completed: completedBool });
+        const tasks = await taskService.findTasks({ name, completed: completedBool, user_id: userId });
         const status = tasks.length > 0 ? STATUS_SUCCESS : STATUS_ERROR;
         res.status(200).json({ tasks, status, message: tasks.length ? "" : "No tasks found" });
     } catch (err) {
@@ -21,11 +21,14 @@ module.exports.getTasks = async (req, res) => {
 };
 
 
+
 // Thêm một Task mới
 module.exports.addTask = async (req, res) => {
-    const {  name, startDate, endDate, completed } = req.body;
+    const { name, startDate, endDate, completed } = req.body;
+    const userId = req.user.id;
+
     try {
-        const newTask = await taskService.addTask({  name, startDate, endDate, completed });
+        const newTask = await taskService.addTask({ name, startDate, endDate, completed, user_id: userId });
         res.status(201).json({ message: 'Task added', task: newTask, status: STATUS_SUCCESS });
     } catch (err) {
         console.error('Error adding task:', err);
@@ -33,11 +36,17 @@ module.exports.addTask = async (req, res) => {
     }
 };
 
+
 // Xóa một Task theo ID
 module.exports.deleteTask = async (req, res) => {
     const taskId = req.params.id;
+    const userId = req.user.id;
+
     try {
-        const deletedTask = await taskService.deleteTask(taskId);
+        const deletedTask = await taskService.deleteTask(taskId, userId);
+        if (!deletedTask) {
+            return res.status(404).json({ message: 'Task not found or unauthorized', status: STATUS_ERROR });
+        }
         res.status(200).json({ message: 'Task deleted', task: deletedTask, status: STATUS_SUCCESS });
     } catch (err) {
         console.error('Error deleting task:', err);
@@ -45,11 +54,17 @@ module.exports.deleteTask = async (req, res) => {
     }
 };
 
+
 // Chuyển đổi trạng thái hoàn thành của Task
 module.exports.toggleTaskCompletion = async (req, res) => {
     const taskId = req.params.id;
+    const userId = req.user.id;
+
     try {
-        const updatedTask = await taskService.toggleTaskCompletion(taskId);
+        const updatedTask = await taskService.toggleTaskCompletion(taskId, userId);
+        if (!updatedTask) {
+            return res.status(404).json({ message: 'Task not found or unauthorized', status: STATUS_ERROR });
+        }
         res.status(200).json({ message: 'Task completion toggled', task: updatedTask, status: STATUS_SUCCESS });
     } catch (err) {
         console.error('Error toggling task completion:', err);

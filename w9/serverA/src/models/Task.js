@@ -12,6 +12,10 @@ const Task = sequelize.define('Task', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,      
+    },
     startDate: {
         type: DataTypes.DATE,
         allowNull: false,
